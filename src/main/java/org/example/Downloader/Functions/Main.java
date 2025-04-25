@@ -1,7 +1,9 @@
-package org.example.Interface;
+package org.example.Downloader.Functions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.Downloader.Interface.AppButton;
+import org.example.Downloader.Interface.MyFrame;
+import org.example.Downloader.Interface.MyTabs;
+import org.example.Downloader.Interface.Profile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,31 +15,36 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static org.example.Interface.MyFrame.consoleMessage;
-import static org.example.Interface.ProfilesPanel.profiles;
+import static org.example.Downloader.Interface.MyFrame.consoleMessage;
+import static org.example.Downloader.Interface.ProfilesPanel.profiles;
 
-
+/**
+ * Main class that starts the application.
+ * Stores mini-database with the applications' data, the list of the selected apps and a thread that starts before the app is finished.
+ * @author Vadim Elshin
+ * @version 1.0.1
+ */
 public class Main {
+    public static ArrayList<AppToDownload> selectedApps = new ArrayList<>();
 
     public static String[][] apps_names = {
     /*#0 Browsers*/     {"Chrome", "FireFox", "Yandex", "Opera", "OperaGX", "Brave"},
-    /*#1 Launchers*/    {"Steam", "Epic Games Store", "Ubisoft Launcher", "GOG Galaxy", "RockStar Launcher", "EA Launcher", "Battle.net", "TLauncher", "League of Legends", "Nvidia App", "AMD Adrenalin"},
+    /*#1 Launchers*/    {"Steam", "Epic Games Store", "Ubisoft Launcher", "GOG Galaxy", "Rockstar Launcher", "EA Launcher", "Battle.net", "TLauncher", "League of Legends", "Nvidia App", "AMD Adrenalin"},
     /*#2 Media*/        {"VLC", "Spotify", "WinRar", "7-zip", "Acrobat Reader", "Acrobat Pro", "Photoshop 2025", "Premiere Pro 2025", "Vegas Pro 22", "Figma", "OBS Studio", "uTorrent", "qBittorrent", "XMind Zen", "FreeMind", "OriginLabPro", "ChemWindow", "Blender"},
-    /*#3 Programming*/  {"NotePad++", "VS Code", "Visual Studio", "InteliJ", "PyCharm Community", "Eclipse Community", "Apache NetBeans", "CMDer", "Git", "DBeaver", ".NET 9", "JDK 24", "Python 3.13"},
+    /*#3 Programming*/  {"NotePad++", "VS Code", "Visual Studio", "InteliJ Com.", "PyCharm Com.", "Eclipse Com.", "Apache NetBeans", "CMDer", "Git", "DBeaver", ".NET 9", "JDK 24", "Python 3.13"},
     /*#4 Communication*/{"Discord", "Telegram", "TeamSpeak", "WhatsApp", "Skype", "Teams"},
     /*-----------------------------------------------------------------------------------------*/
-    /*#5 Overview*/     {"CPU-Z", "CCleaner", "Speccy", "BatteryMon", "WuMgr", "Revo Uninstaller Pro", "HWiNFO"},
+    /*#5 Overview*/     {"CPU-Z", "CCleaner", "Speccy", "BatteryMon", "WuMgr", "Revo Uninstaller", "HWiNFO"},
     /*#6 Tests*/        {"FurMark", "OCCT", "MemTest86", "AIDA64", "FanControl", "Prime95", "PowerMax", "3DMark", "PCMark-10"},
     /*#7 Network*/      {"AnyDesk", "RustDesk", "Supremo", "HWMonitor-Pro", "OpenVPN Connect", "WireGuard", "Hamachi", "Shadowsocks", "XAMPP"},
     /*#8 OS & ISOs*/    {"Windows 10", "Windows 11", "Ubuntu 24", "MediCat", "Strelec", "VirtualBox"},
     /*#9 Disk*/         {"CrystalDiskInfo", "CrystalDiskMark", "AOMEI Backupper", "DiskGenius", "Dashboard Sandisk", "WD Data Lifeguard", "HDClone"},
-    /*#10 Protection*/  {"DefenderUI", "ESETOnlineScanner", "MalwareBytes"},
+    /*#10 Protection*/  {"DefenderUI", "ESET Online", "MalwareBytes"},
     /*-----------------------------------------------------------------------------------------*/
-    /*#11 OtherApps*/   {"AutoFirma", "Configurador FNMT", "Instalador Tarjetas DNIe", "Rufus", "KMS", "Launch4j", "r2modman", "IconViewer", "Vencord", "Wordpress"},
-    /*#12 Files*/       {"Cyberpunk 2077 Bonus Content", "SILENT HILL 2 - Soundtrack"},
+    /*#11 OtherApps*/   {"AutoFirma", "Configurador FNMT", "Inst. Tar. DNIe", "Rufus", "KMS", "Launch4j", "r2modman", "IconViewer", "Vencord", "Wordpress"},
+    /*#12 Files*/       {"Bonus Content", "Soundtracks"},
     };
 
     public static String[][] files_names = {
@@ -207,7 +214,7 @@ public class Main {
         /*Chrome*/      (".\\Brave.exe --silent")
     },
 /*#1 Launchers*/    {
-        /*Steame*/      ("src/Icons/Apps/Launchers/steam.png"),
+        /*Steame*/      (".\\Steam.exe /S"),
         /*EGS*/         (".\\EGS.msi /quiet"),
         /*Ubisoft*/     (".\\Ubisoft.exe /S"),
         /*GOG*/         (".\\GOG_Galaxy.exe /VERYSILENT /NORESTART"),
@@ -335,6 +342,12 @@ public class Main {
     }
     };
 
+    /**
+     * Resized an icon to specific size and then returns it
+     * @param path stores path of the icon location
+     * @param size tells which size should be the indicated icon
+     * @return new resized icon
+     */
     public static ImageIcon resizeIcon(String path, int size){
         try{
             BufferedImage img = ImageIO.read(new File(path));
@@ -346,9 +359,11 @@ public class Main {
         }
     }
 
-    public static ArrayList<AppToDownload> selectedApps = new ArrayList<>();
 
-
+    /**
+     * Adds new app to the list of selected apps.
+     * @param new_app object of AppToDownload class that stores information about the app.
+     */
     public static void addApp(AppToDownload new_app){
         for(AppToDownload app : selectedApps){
             if(app == new_app){
@@ -369,20 +384,28 @@ public class Main {
         return cont;
     }
 
+    /**
+     * Remove the app from the list of selected apps.
+     * @param delete_app object of AppToDownload class that stores information about the app.
+     */
     public static void removeApp(AppToDownload delete_app){
         selectedApps.remove(delete_app);
     }
 
+    /**
+     * Desactivates all the buttons and then activates those who contains apps from the list of selected apps.
+     * Is called when user copies created profile.
+     */
     public static void desactivateButtons(){
         for(MyTabs p : MyFrame.categories){
-            for(MyButton b : p.buttons){
+            for(AppButton b : p.buttons){
                 if(b != null && b.appToDownload != null){
                     b.setBackground(Color.WHITE);
                 }
             }
         }
         for(MyTabs p : MyFrame.categories){
-            for(MyButton b : p.buttons){
+            for(AppButton b : p.buttons){
                 if(b != null && b.appToDownload != null){
                     for(AppToDownload app : selectedApps){
                         if(Objects.equals(b.app_name, app.name)){
@@ -394,12 +417,19 @@ public class Main {
         }
     }
 
+    /**
+     * Method that starts the program.
+     * Creates a thread that starts when application is closing. Writes the data from created profiles into the new json file.
+     * @param args Arguments that program might read.
+     * @throws IOException happens when json file couldn't be found or an error occurs.
+     */
     public static void main(String[] args) throws IOException {
         try{
             MyFrame myFrame = new MyFrame();
         }catch (NullPointerException e){
             e.getMessage();
         }
+
 
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -428,7 +458,6 @@ public class Main {
                             pers.put(per);
                             prfFound = true;
                         }
-
                     }
                 }
                 try {
@@ -442,5 +471,5 @@ public class Main {
                 }
             }
         }, "Shutdown-thread"));
-    }
+   }
 }

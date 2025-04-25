@@ -2,7 +2,7 @@
   <artifact type="jar" name="Interface:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Interface_jar</output-path>
     <root id="archive" name="Interface.jar">
-      <element id="module-output" name="Interface" />
+      <element id="module-output" name="Downloader" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.5/commons-io-2.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.13.0/jackson-core-2.13.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.0/jackson-databind-2.13.0.jar" path-in-jar="/" />
