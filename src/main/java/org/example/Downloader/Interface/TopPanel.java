@@ -10,9 +10,9 @@ import java.awt.*;
  */
 public class TopPanel extends JPanel {
 
-    JLabel program_name = new JLabel("DOWNLOADER");
-    JLabel author_name = new JLabel("VADIM ELSHIN | DAW 1 | IES DOCTOR BALMIS");
-    JButton check_connection = new JButton("Check Connection:");
+    private JLabel program_name = new JLabel("DOWNLOADER");
+    private JLabel author_name = new JLabel("VADIM ELSHIN | DAW 1 | IES DOCTOR BALMIS");
+    public JButton check_connection = new JButton("Check Connection:");
     public JLabel status_connection = new JLabel(Main.resizeIcon("src/Icons/neutral.png", 55));
 
     /**

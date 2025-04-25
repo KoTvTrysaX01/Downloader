@@ -367,7 +367,7 @@ public class Main {
     public static void addApp(AppToDownload new_app){
         for(AppToDownload app : selectedApps){
             if(app == new_app){
-                System.out.println("App is already added");
+                //System.out.println("App is already added");
                 return;
             }
         }
@@ -400,7 +400,7 @@ public class Main {
         for(MyTabs p : MyFrame.categories){
             for(AppButton b : p.buttons){
                 if(b != null && b.appToDownload != null){
-                    b.setBackground(Color.WHITE);
+                    b.setBorder(BorderFactory.createLineBorder(new Color(0, 110, 16), 2));
                 }
             }
         }
@@ -409,7 +409,7 @@ public class Main {
                 if(b != null && b.appToDownload != null){
                     for(AppToDownload app : selectedApps){
                         if(Objects.equals(b.app_name, app.name)){
-                            b.setBackground(Color.GREEN);
+                            b.setBorder(BorderFactory.createLineBorder(new Color(245, 71, 59), 4));
                         }
                     }
                 }

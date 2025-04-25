@@ -23,8 +23,8 @@ public class AppButton extends JButton {
         this.setVerticalTextPosition(JLabel.BOTTOM);
         this.setHorizontalTextPosition(JLabel.CENTER);
         this.setLayout(null);
-        this.setFocusPainted(false);
-        this.setContentAreaFilled(false);
+//        this.setFocusPainted(false);
+//        this.setContentAreaFilled(false);
         this.setFocusable(false);
 
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -72,14 +72,14 @@ public class AppButton extends JButton {
      * Is used to add a gradient layer to the button's background.
      * @param g An object of Graphics class that belongs to the button.
      */
-    protected void paintComponent(Graphics g){
-        final Graphics2D g2 = (Graphics2D) g.create();
-        g2.setPaint(new GradientPaint(
-                new Point(0, getHeight() + 40), new Color(102, 255, 179),
-                new Point(getWidth() - 40, 0), new Color(231, 247, 111)));
-        g2.fillRect(0, 0, getWidth(), getHeight());
-        g2.dispose();
-
-        super.paintComponent(g);
-    }
+//    protected void paintComponent(Graphics g){
+//        final Graphics2D g2 = (Graphics2D) g.create();
+//        g2.setPaint(new GradientPaint(
+//                new Point(0, getHeight() + 40), new Color(102, 255, 179),
+//                new Point(getWidth() - 40, 0), new Color(231, 247, 111)));
+//        g2.fillRect(0, 0, getWidth(), getHeight());
+//        g2.dispose();
+//
+//        super.paintComponent(g);
+//    }
 }

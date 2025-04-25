@@ -73,8 +73,8 @@ public class Programming extends MyTabs{
         buttons[4] = pycharm;
         buttons[5] = eclipse;
         buttons[6] = netbeans;
-        buttons[7] = cmder;
-        buttons[8] = git;
+        buttons[7] = git;
+        buttons[8] = cmder;
         buttons[9] = dbeaver;
         buttons[10] = dotnet;
         buttons[11] = jdk;
