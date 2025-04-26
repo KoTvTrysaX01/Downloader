@@ -33,7 +33,7 @@ public class Connection{
             Session session = jsch.getSession(sftpUser, sftpHost, Integer.valueOf(sftpPort));
             session.setConfig("StrictHostKeyChecking", "no");
             session.setPassword(sftpPassword);
-            consoleMessage("--------------------------------------------------");
+            consoleMessage("------------------------------------------------");
             consoleMessage("Connecting...");
             session.connect();
             consoleMessage("Connected.");
@@ -55,7 +55,7 @@ public class Connection{
             channelSftp.disconnect();
             session.disconnect();
             consoleMessage("Disconnected");
-            consoleMessage("--------------------------------------------------");
+            consoleMessage("------------------------------------------------");
             cont = 1;
         }catch (Exception e){
             consoleMessage("Error! Something went wrong");

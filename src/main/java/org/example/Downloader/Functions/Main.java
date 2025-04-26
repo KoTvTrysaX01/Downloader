@@ -24,7 +24,7 @@ import static org.example.Downloader.Interface.ProfilesPanel.profiles;
  * Main class that starts the application.
  * Stores mini-database with the applications' data, the list of the selected apps and a thread that starts before the app is finished.
  * @author Vadim Elshin
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class Main {
     public static ArrayList<AppToDownload> selectedApps = new ArrayList<>();
